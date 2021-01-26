@@ -14,8 +14,8 @@ class Book(models.Model):
 class Author(models.Model):
     first_name = models.CharField(max_length=128)
     last_name = models.CharField(max_length=128)
-    date_of_birth = models.CharField(max_length=64)
-    date_of_death = models.CharField(max_length=64)
+    date_of_birth = models.DateField()
+    date_of_death = models.DateField()
     country = models.CharField(max_length=64)
     gender = models.BooleanField()
     native_language = models.CharField(max_length=64)
