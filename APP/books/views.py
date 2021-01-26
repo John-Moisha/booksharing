@@ -15,7 +15,7 @@ def book_list(request):
     return HttpResponse(response_content)
 
 #first_name, last_name, date_of_birth, date_of_death, country, gender, native_language
-def book_list(request):
+def author_list(request):
 
     response_content = ''
 
