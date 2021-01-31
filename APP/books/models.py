@@ -1,7 +1,7 @@
 from django.db import models
 
-# Create your models here.
 
+# Create your models here.
 class Book(models.Model):
     author = models.CharField(max_length=128)
     title = models.CharField(max_length=128)
@@ -9,8 +9,9 @@ class Book(models.Model):
     review = models.CharField(max_length=512)
     condition = models.PositiveSmallIntegerField()
 
-#Author` с полями: first_name, last_name, date_of_birth, date_of_death, country, gender, native_language
 
+# Author` с полями: first_name, last_name, date_of_birth,
+# date_of_death, country, gender, native_language
 class Author(models.Model):
     first_name = models.CharField(max_length=128)
     last_name = models.CharField(max_length=128)
