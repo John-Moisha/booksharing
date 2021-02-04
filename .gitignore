@@ -1,5 +1,6 @@
 env/
 .ide/
+*.pyc
 __pycahe__/
 APP/db.sqlite3
 APP/books/__pycache__/*
