@@ -15,6 +15,7 @@ class BookForm(forms.ModelForm):
             'condition',
         )
 
+
 class AuthorForm(forms.ModelForm):
     class Meta:
         model = Author

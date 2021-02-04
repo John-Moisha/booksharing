@@ -1,20 +1,17 @@
-from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
-from django.urls import reverse
 
 from books.models import Book
 from books.models import Author
 from books.forms import BookForm, AuthorForm
 
 
-
 # Create your views here.
-
-def index (requests):
+def index(requests):
     context = {
         'title': 'Сайт Обмена Книгами',
     }
     return render(requests, 'index.html', context=context)
+
 
 def books_list(request):
     context = {
@@ -23,6 +20,7 @@ def books_list(request):
     }
 
     return render(request, 'books_list.html', context=context)
+
 
 def book_create(request):
     form_data = request.POST
@@ -40,6 +38,7 @@ def book_create(request):
     }
     return render(request, 'books_create.html', context=context)
 
+
 def book_update(request, pk):
     instance = get_object_or_404(Book, pk=pk)
 
@@ -56,15 +55,17 @@ def book_update(request, pk):
         'message': 'BOOK UPDATE',
         'form': form,
     }
+
     return render(request, 'books_create.html', context=context)
+
 
 def book_delete(request, pk):
     instance = get_object_or_404(Book, pk=pk)
     instance.delete()
     return redirect('books-list')
 
-##### Authors
 
+# Authors
 def authors_list(request):
     context = {
         'title': "Список Авторов",
@@ -72,6 +73,7 @@ def authors_list(request):
     }
 
     return render(request, 'author_list.html', context=context)
+
 
 def author_create(request):
     form_data = request.POST
@@ -88,6 +90,7 @@ def author_create(request):
         'form': form,
     }
     return render(request, 'author_create.html', context=context)
+
 
 def author_update(request, pk):
     instance = get_object_or_404(Author, pk=pk)
@@ -106,6 +109,7 @@ def author_update(request, pk):
         'form': form,
     }
     return render(request, 'author_create.html', context=context)
+
 
 def author_delete(request, pk):
     instance = get_object_or_404(Author, pk=pk)
