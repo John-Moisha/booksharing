@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+</head>
+<body>
+<p style="text-align:center;">{{ title }}</p>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Create</button>
+
+</form>
+
+{% if form.instance.id %}
+    <a href="{% url 'book-delete' form.instance.id %}">DELETE</a>
+{% endif %}
+
+</body>
+</html>
