@@ -1,31 +1,117 @@
-from django.http import HttpResponse
+from django.shortcuts import render, get_object_or_404, redirect
 
 from books.models import Book
 from books.models import Author
+from books.forms import BookForm, AuthorForm
 
 
 # Create your views here.
-def book_list(request):
-    response_content = ''
-    # Book.objects.all() - SELECT * FROM books_book;
-    for book in Book.objects.all():
-        response_content += f'ID: {book.id},' \
-                            f' Author: {book.author} <br/>'
-    return HttpResponse(response_content)
+def index(requests):
+    context = {
+        'title': 'Сайт Обмена Книгами',
+    }
+    return render(requests, 'index.html', context=context)
 
 
-# first_name, last_name, date_of_birth, date_of_death,
-# country, gender, native_language
+def books_list(request):
+    context = {
+        'title': 'Список Книг',
+        'books_list': Book.objects.all(),
+    }
 
-def author_list(request):
-    response_content = ''
-    for author in Author.objects.all():
-        response_content += f'ID: {author.id},' \
-                            f' Author: <storng>{author.first_name} ' \
-                            f'{author.last_name}</storng>,' \
-                            f'B-Day:<i>{author.date_of_birth}</i>,' \
-                            f'D-Day:<i>{author.date_of_death or "oops"}</i>,' \
-                            f' Gender: {author.gender},' \
-                            f' Country: {author.country},' \
-                            f' Native language: {author.native_language}'
-    return HttpResponse(response_content)
+    return render(request, 'books_list.html', context=context)
+
+
+def book_create(request):
+    form_data = request.POST
+    if request.method == 'POST':
+        form = BookForm(form_data)
+        if form.is_valid():
+            form.save()
+            return redirect('books-list')
+    elif request.method == 'GET':
+        form = BookForm()
+
+    context = {
+        'title': 'Создать Книгу',
+        'form': form,
+    }
+    return render(request, 'books_create.html', context=context)
+
+
+def book_update(request, pk):
+    instance = get_object_or_404(Book, pk=pk)
+
+    form_data = request.POST
+    if request.method == 'POST':
+        form = BookForm(form_data, instance=instance)
+        if form.is_valid():
+            form.save()
+            return redirect('books-list')
+    elif request.method == 'GET':
+        form = BookForm(instance=instance)
+
+    context = {
+        'message': 'BOOK UPDATE',
+        'form': form,
+    }
+
+    return render(request, 'books_create.html', context=context)
+
+
+def book_delete(request, pk):
+    instance = get_object_or_404(Book, pk=pk)
+    instance.delete()
+    return redirect('books-list')
+
+
+# Authors
+def authors_list(request):
+    context = {
+        'title': "Список Авторов",
+        'author_list': Author.objects.all(),
+    }
+
+    return render(request, 'author_list.html', context=context)
+
+
+def author_create(request):
+    form_data = request.POST
+    if request.method == 'POST':
+        form = AuthorForm(form_data)
+        if form.is_valid():
+            form.save()
+            return redirect('authors-list')
+    elif request.method == 'GET':
+        form = AuthorForm()
+
+    context = {
+        'title': 'Добавить Автора',
+        'form': form,
+    }
+    return render(request, 'author_create.html', context=context)
+
+
+def author_update(request, pk):
+    instance = get_object_or_404(Author, pk=pk)
+
+    form_data = request.POST
+    if request.method == 'POST':
+        form = AuthorForm(form_data, instance=instance)
+        if form.is_valid():
+            form.save()
+            return redirect('authors-list')
+    elif request.method == 'GET':
+        form = AuthorForm(instance=instance)
+
+    context = {
+        'message': 'Author UPDATE',
+        'form': form,
+    }
+    return render(request, 'author_create.html', context=context)
+
+
+def author_delete(request, pk):
+    instance = get_object_or_404(Author, pk=pk)
+    instance.delete()
+    return redirect('authors-list')
