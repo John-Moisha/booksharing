@@ -20,12 +20,11 @@ class Author(models.Model):
     country = models.CharField(max_length=64)
     gender = models.BooleanField()
     native_language = models.CharField(max_length=64)
+    # def save(self, *args, **kwargs):
+    #     super().save(*args, **kwargs)
 
-    def save(self, *args, **kwargs):
-        super().save(*args, **kwargs)
 
 class Log(models.Model):
     path = models.CharField(max_length=512)
     method = models.CharField(max_length=64)
     time = models.PositiveSmallIntegerField()
-
