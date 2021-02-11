@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<table border="1">
+        <tr>
+            <th>#</th>
+            <th>ID</th>
+            <th>Path</th>
+            <th>Method</th>
+            <th>Time</th>
+        </tr>
+
+        {% for log in logs_mw  %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ log.id }}</td>
+                <td>{{ log.path }}</td>
+                <td>{{ log.method }}</td>
+                <td>{{ log.time }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+
+{% endblock content%}

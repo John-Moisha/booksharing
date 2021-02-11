@@ -1,11 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{{ title }}</title>
-</head>
-<body>
-<p style="text-align:center;">{{ title }}</p>
+{% extends 'base.html' %}
+
+{% block content %}
+
 <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
@@ -17,5 +13,4 @@
     <a href="{% url 'book-delete' form.instance.id %}">DELETE</a>
 {% endif %}
 
-</body>
-</html>
+{% endblock content%}
