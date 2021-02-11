@@ -115,7 +115,6 @@ def author_delete(request, pk):
     instance.delete()
     return redirect('authors-list')
 
-
 def logs_mw(request):
     context = {
         'title': 'Логи',

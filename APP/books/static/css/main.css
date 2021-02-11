@@ -15,34 +15,15 @@ div#header {
 
 div#navbar{
     width:100%;
-    background-color:#777;
-    padding:10px;
-    text-align:center;
-    margin-bottom:20px;
-}
-ul.main-menu {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-}
-ul.main-menu li{
-    display: inline;
-    background-color:#888;
-}
-ul.main-menu li:hover{
-    background-color:#555;
-}
-ul.main-menu a{
-    color:#ffcc33;
-    text-decoration:none;
-}
 
+    margin-bottom:30px;
+}
 
 div#footer{
+position: absolute;
+  bottom: 0;
     color:#fff;
     background-color:#000;
     text-align:center;
-    width:100%;
-    margin-top:50px;
     padding:10px;
 }
