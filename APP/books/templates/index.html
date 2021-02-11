@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {% extends 'base.html' %}
 
 {% block content %}
@@ -6,3 +7,21 @@
     HELLO FROM INDEX
     <br>
 {% endblock content %}
+=======
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+</head>
+<body style="text-align:center;">
+<p>{{ title }}</p><br>
+    <a href="{% url 'books-list' %}">books list</a><br>
+    <a href="{% url 'book-create' %}">book create</a><br>
+    <hr>
+    <a href="{% url 'authors-list' %}">Author list</a><br>
+    <a href="{% url 'author-create' %}">Author create</a>
+
+</body>
+</html>
+>>>>>>> main

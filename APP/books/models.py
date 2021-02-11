@@ -20,6 +20,7 @@ class Author(models.Model):
     country = models.CharField(max_length=64)
     gender = models.BooleanField()
     native_language = models.CharField(max_length=64)
+<<<<<<< HEAD
     # def save(self, *args, **kwargs):
     #     super().save(*args, **kwargs)
 
@@ -28,3 +29,21 @@ class Log(models.Model):
     path = models.CharField(max_length=512)
     method = models.CharField(max_length=64)
     time = models.PositiveSmallIntegerField()
+=======
+
+    def save(self, *args, **kwargs):
+        # args - tuple
+        # kwargs - dict
+        # print('START SAVE')
+        # self.first_name = self.first_name.capitalize()
+        # self.last_name = self.last_name.capitalize()
+        super().save(*args, **kwargs)
+        # print('END SAVE')
+
+    # def save(self, force_insert=False, force_update=False, using=None,
+    #          update_fields=None):
+    #     super().save(
+    #         force_insert=force_insert, force_update=force_update, using=using,
+    #         update_fields=update_fields
+    #     )
+>>>>>>> main
