@@ -3,6 +3,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from books.models import Book, Author, Log
 from books.forms import BookForm, AuthorForm
 
+
 # Create your views here.
 def index(requests):
     context = {
@@ -73,6 +74,7 @@ def authors_list(request):
 
     return render(request, 'author_list.html', context=context)
 
+
 def author_create(request):
     form_data = request.POST
     if request.method == 'POST':
@@ -114,6 +116,7 @@ def author_delete(request, pk):
     instance.delete()
     return redirect('authors-list')
 
+
 def logs_mw(request):
     context = {
         'title': 'Логи',
@@ -121,7 +124,8 @@ def logs_mw(request):
     }
     return render(request, 'logs.html', context=context)
 
-def author_create(request):
+
+def author_create(request): # noqa :PyCharmTrial
     form_data = request.POST
     if request.method == 'POST':
         form = AuthorForm(form_data)
@@ -138,7 +142,7 @@ def author_create(request):
     return render(request, 'author_create.html', context=context)
 
 
-def author_update(request, pk):
+def author_update(request, pk): # noqa :PyCharmTrial
     instance = get_object_or_404(Author, pk=pk)
 
     form_data = request.POST
@@ -157,8 +161,7 @@ def author_update(request, pk):
     return render(request, 'author_create.html', context=context)
 
 
-def author_delete(request, pk):
+def author_delete(request, pk): # noqa :PyCharmTrial
     instance = get_object_or_404(Author, pk=pk)
     instance.delete()
     return redirect('authors-list')
-
