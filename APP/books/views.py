@@ -3,8 +3,6 @@ from django.shortcuts import render, get_object_or_404, redirect
 from books.models import Book, Author, Log
 from books.forms import BookForm, AuthorForm
 
-
-
 # Create your views here.
 def index(requests):
     context = {

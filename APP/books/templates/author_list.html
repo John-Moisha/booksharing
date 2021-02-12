@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 {% extends 'base.html' %}
 
 {% block content %}
@@ -37,23 +36,3 @@
     </table>
 
 {% endblock content%}
-=======
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{{ title }}</title>
-</head>
-<body>
-<p style="text-align:center;">{{ title }}</p>
-{% for author in author_list %}
-    ID: {{ author.id }}
-    Author: {{ author.first_name }} {{ author.last_name }}<br>
-    Birth: {{ author.date_of_birth }} - {{ author.date_of_death }}<br>
-    Country: {{ author.country }}
-<a href="{% url 'author-update' author.id %}">edit</a><p></p>
-{% endfor %}
-
-</body>
-</html>
->>>>>>> main
