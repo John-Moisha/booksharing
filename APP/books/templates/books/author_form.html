@@ -10,7 +10,7 @@
 </form>
 
 {% if form.instance.id %}
-    <a href="{% url 'book-delete' form.instance.id %}">DELETE</a>
+    <a href="{% url 'books:author-delete' form.instance.id %}">DELETE</a>
 {% endif %}
 
 {% endblock content%}

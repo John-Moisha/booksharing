@@ -14,23 +14,23 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from books import views
+from accounts.views import MyProfileView
 
 urlpatterns = [
     path('admin/', admin.site.urls, name='admin'),
-    path('', views.index, name='index'),
+    path('', views.Index.as_view(), name='index'),
+
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('books/', include('books.urls')),
+    # accounts
+    path('accounts/my-profile/', MyProfileView.as_view(), name='my-profile'),
+
+    # path('books/authors/create/', views.author_create, name='author-create'),
+    # path('books/authors/list/', views.authors_list, name='authors-list'),
+    # path('books/authors/update/<int:pk>/', views.author_update, name='author-update'),
+    # path('books/authors/delete/<int:pk>/', views.author_delete, name='author-delete'),
     path('logs/', views.logs_mw, name='logs'),
-    path('books/login/', views.login_view, name='login'),
-
-    path('books/create/', views.book_create, name='book-create'),
-    path('books/list/', views.books_list, name='books-list'),
-    path('books/update/<int:pk>/', views.book_update, name='book-update'),
-    path('books/delete/<int:pk>/', views.book_delete, name='book-delete'),
-
-    path('books/authors/create/', views.author_create, name='author-create'),
-    path('books/authors/list/', views.authors_list, name='authors-list'),
-    path('books/authors/update/<int:pk>/', views.author_update, name='author-update'),
-    path('books/authors/delete/<int:pk>/', views.author_delete, name='author-delete'),
 
 ]
