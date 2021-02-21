@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 
 from books.models import Book, Author, Log
-from books.forms import BookForm, AuthorForm
+from books.forms import BookForm, AuthorForm, LoginForm
 
 
 # Create your views here.
@@ -115,6 +115,25 @@ def author_delete(request, pk):
     instance = get_object_or_404(Author, pk=pk)
     instance.delete()
     return redirect('authors-list')
+
+
+def login_view(request):
+    form_data = request.POST
+    form_class = LoginForm
+
+    if request.method == 'POST':
+        form = form_class(form_data)
+        if form.is_valid():
+            form.save()
+            return redirect('books-list')
+    elif request.method == 'GET':
+        form = form_class()
+
+    context = {
+        'title': 'Login',
+        'form': form,
+    }
+    return render(request, 'login.html', context=context)
 
 
 def logs_mw(request):

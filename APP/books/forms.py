@@ -28,3 +28,8 @@ class AuthorForm(forms.ModelForm):
             'gender',
             'native_language',
         )
+
+
+class LoginForm(forms.Form):
+    username = forms.CharField()
+    password = forms.CharField()
