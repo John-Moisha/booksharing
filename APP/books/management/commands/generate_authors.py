@@ -15,20 +15,20 @@ class Command(BaseCommand):
         authors_list = []
 
         for _ in range(options['quant']):
-            first_name = fake.first_name(),
-            last_name = fake.last_name(),
-            date_of_birth = '2020-10-10',
-            date_of_death = '2021-10-10',
-            country = fake.country(),
-            gender = random.choice([True, False]),
+            first_name = fake.first_name()
+            last_name = fake.last_name()
+            country = fake.country()
+            date_of_birth = fake.date()
+            date_of_death = fake.date()
+            gender = bool(random.getrandbits(1))
             native_language = fake.country_code()
 
             authors_list.append(Author(
                 first_name=first_name,
                 last_name=last_name,
+                country=country,
                 date_of_birth=date_of_birth,
                 date_of_death=date_of_death,
-                country=country,
                 gender=gender,
                 native_language=native_language
             ))
