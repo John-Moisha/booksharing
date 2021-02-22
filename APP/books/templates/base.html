@@ -7,15 +7,16 @@
     <link rel="stylesheet" href="{% static 'css/menu.css' %}">
 </head>
 <body>
+
 {% include 'parts/header.html' %}
 
 {% include 'parts/navbar.html' %}
-
+<div class="content-inside ">
 {% block content %}
 {#    <a href="#">SAVE ME!!!</a>#}
 {% endblock content %}
 
 {% include 'parts/footer.html' %}
-
+</div>
 </body>
 </html>

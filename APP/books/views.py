@@ -4,7 +4,7 @@ from django.views.generic import (
     CreateView, UpdateView, DeleteView, ListView,
     TemplateView,
 )
-from books.models import Book, Author
+from books.models import Book, Author, Log
 
 
 class Index(TemplateView):
@@ -85,5 +85,7 @@ class AuthorDelete(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy('books:author-list')
 
 
-class logs_mw(TemplateView):
+# log
+class LogsMW(ListView):
     template_name = 'logs.html'
+    queryset = Log.objects.all()
