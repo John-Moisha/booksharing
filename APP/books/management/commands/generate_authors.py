@@ -33,4 +33,3 @@ class Command(BaseCommand):
                 native_language=native_language
             ))
         Author.objects.bulk_create(authors_list)
-
