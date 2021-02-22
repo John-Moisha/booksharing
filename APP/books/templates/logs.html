@@ -10,13 +10,13 @@
             <th>Time</th>
         </tr>
 
-        {% for log in logs_mw  %}
+        {% for object in object_list  %}
             <tr>
                 <td>{{ forloop.counter }}</td>
-                <td>{{ log.id }}</td>
-                <td>{{ log.path }}</td>
-                <td>{{ log.method }}</td>
-                <td>{{ log.time }}</td>
+                <td>{{ object.id }}</td>
+                <td>{{ object.path }}</td>
+                <td>{{ object.method }}</td>
+                <td>{{ object.time }}</td>
             </tr>
         {% endfor %}
     </table>

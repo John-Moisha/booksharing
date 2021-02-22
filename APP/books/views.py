@@ -1,167 +1,91 @@
-from django.shortcuts import render, get_object_or_404, redirect
-
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls import reverse_lazy
+from django.views.generic import (
+    CreateView, UpdateView, DeleteView, ListView,
+    TemplateView,
+)
 from books.models import Book, Author, Log
-from books.forms import BookForm, AuthorForm
 
 
-# Create your views here.
-def index(requests):
-    context = {
-        'title': 'Сайт Обмена Книгами',
-    }
-    return render(requests, 'index.html', context=context)
+class Index(TemplateView):
+    template_name = 'index.html'
 
 
-def books_list(request):
-    context = {
-        'title': 'Список Книг',
-        'books_list': Book.objects.all(),
-    }
-
-    return render(request, 'books_list.html', context=context)
+# Book
+class BookList(ListView):
+    template_name = 'books/books_list.html'
+    queryset = Book.objects.all()
 
 
-def book_create(request):
-    form_data = request.POST
-    if request.method == 'POST':
-        form = BookForm(form_data)
-        if form.is_valid():
-            form.save()
-            return redirect('books-list')
-    elif request.method == 'GET':
-        form = BookForm()
-
-    context = {
-        'title': 'Создать Книгу',
-        'form': form,
-    }
-    return render(request, 'books_create.html', context=context)
+class BookCreate(LoginRequiredMixin, CreateView):
+    model = Book
+    success_url = reverse_lazy('books:book-list')
+    fields = (
+        'author',
+        'title',
+        'publish_year',
+        'review',
+        'condition',
+    )
 
 
-def book_update(request, pk):
-    instance = get_object_or_404(Book, pk=pk)
-
-    form_data = request.POST
-    if request.method == 'POST':
-        form = BookForm(form_data, instance=instance)
-        if form.is_valid():
-            form.save()
-            return redirect('books-list')
-    elif request.method == 'GET':
-        form = BookForm(instance=instance)
-
-    context = {
-        'title': 'Редактировать Книгу',
-        'message': 'BOOK UPDATE',
-        'form': form,
-    }
-
-    return render(request, 'books_create.html', context=context)
+class BookUpdate(LoginRequiredMixin, UpdateView):
+    model = Book
+    success_url = reverse_lazy('books:book-list')
+    fields = (
+        'author',
+        'title',
+        'publish_year',
+        'review',
+        'condition',
+    )
 
 
-def book_delete(request, pk):
-    instance = get_object_or_404(Book, pk=pk)
-    instance.delete()
-    return redirect('books-list')
+class BookDelete(LoginRequiredMixin, DeleteView):
+    model = Book
+    success_url = reverse_lazy('books:books-list')
 
 
 # Authors
-def authors_list(request):
-    context = {
-        'title': "Список Авторов",
-        'author_list': Author.objects.all(),
-    }
-
-    return render(request, 'author_list.html', context=context)
+class AuthorList(ListView):
+    template_name = 'books/authors_list.html'
+    queryset = Author.objects.all()
 
 
-def author_create(request):
-    form_data = request.POST
-    if request.method == 'POST':
-        form = AuthorForm(form_data)
-        if form.is_valid():
-            form.save()
-            return redirect('authors-list')
-    elif request.method == 'GET':
-        form = AuthorForm()
-
-    context = {
-        'title': 'Добавить Автора',
-        'form': form,
-    }
-    return render(request, 'author_create.html', context=context)
+class AuthorCreate(LoginRequiredMixin, CreateView):
+    model = Author
+    success_url = reverse_lazy('books:authors-list')
+    fields = (
+        'first_name',
+        'last_name',
+        'date_of_birth',
+        'date_of_death',
+        'country',
+        'gender',
+        'native_language',
+    )
 
 
-def author_update(request, pk):
-    instance = get_object_or_404(Author, pk=pk)
-
-    form_data = request.POST
-    if request.method == 'POST':
-        form = AuthorForm(form_data, instance=instance)
-        if form.is_valid():
-            form.save()
-            return redirect('authors-list')
-    elif request.method == 'GET':
-        form = AuthorForm(instance=instance)
-
-    context = {
-        'title': 'Редактиоовать Автора',
-        'form': form,
-    }
-    return render(request, 'author_create.html', context=context)
+class AuthorUpdate(LoginRequiredMixin, UpdateView):
+    model = Author
+    success_url = reverse_lazy('books:authors-list')
+    fields = (
+        'first_name',
+        'last_name',
+        'date_of_birth',
+        'date_of_death',
+        'country',
+        'gender',
+        'native_language',
+    )
 
 
-def author_delete(request, pk):
-    instance = get_object_or_404(Author, pk=pk)
-    instance.delete()
-    return redirect('authors-list')
+class AuthorDelete(LoginRequiredMixin, DeleteView):
+    model = Author
+    success_url = reverse_lazy('books:author-list')
 
 
-def logs_mw(request):
-    context = {
-        'title': 'Логи',
-        'logs_mw': Log.objects.all(),
-    }
-    return render(request, 'logs.html', context=context)
-
-
-def author_create(request): # noqa :PyCharmTrial
-    form_data = request.POST
-    if request.method == 'POST':
-        form = AuthorForm(form_data)
-        if form.is_valid():
-            form.save()
-            return redirect('authors-list')
-    elif request.method == 'GET':
-        form = AuthorForm()
-
-    context = {
-        'title': 'Добавить Автора',
-        'form': form,
-    }
-    return render(request, 'author_create.html', context=context)
-
-
-def author_update(request, pk): # noqa :PyCharmTrial
-    instance = get_object_or_404(Author, pk=pk)
-
-    form_data = request.POST
-    if request.method == 'POST':
-        form = AuthorForm(form_data, instance=instance)
-        if form.is_valid():
-            form.save()
-            return redirect('authors-list')
-    elif request.method == 'GET':
-        form = AuthorForm(instance=instance)
-
-    context = {
-        'message': 'Author UPDATE',
-        'form': form,
-    }
-    return render(request, 'author_create.html', context=context)
-
-
-def author_delete(request, pk): # noqa :PyCharmTrial
-    instance = get_object_or_404(Author, pk=pk)
-    instance.delete()
-    return redirect('authors-list')
+# log
+class LogsMW(ListView):
+    template_name = 'logs.html'
+    queryset = Log.objects.all()
