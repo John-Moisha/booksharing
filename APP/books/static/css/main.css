@@ -1,16 +1,22 @@
-body {
-    height:100%;
-    margin:0;
+*, *::before, *::after{
+     margin: 0;
+     padding: 0;
+     box-sizing: border-box;
+  }
+
+.pagewrap{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+main{
+    flex-grow: 1;
+  }
+.mainwrap{
+    margin: auto 20px;
 }
 
-table{
-    width:100%;
-}
-
-content-inside {
-  padding: 20px;
-  padding-bottom: 50px;
-}
 
 div#header {
     width:100%;
@@ -24,12 +30,36 @@ div#navbar{
     margin-bottom:30px;
 }
 
-div#footer{
-    height: 50px;
-    margin-top: -50px;
-
-    color:#fff;
-    background-color:#000;
-    text-align:center;
-    padding:10px;
+.main{
+    max-width: 1276px;
+    margin: 0 auto;
 }
+
+.main .wrapper {
+    padding: 0 20px;
+}
+
+.wrapper{
+    color:#7FFF00;
+}
+
+.bottom{
+    margin-top: 10px;
+    min-height: 100px;
+    background-color: RGB(0, 0, 0, 0.5);;
+    -webkit-border-top-left-radius: 20px;
+    -webkit-border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+
+.footer{
+    background: url(../img/grass.webp) repeat-x scroll bottom;
+    width:100%;
+    margin-top: 30px;
+    text-align:center;
+}
+
+.footer .bottom .row {
+    padding: 20px 10px 0 20px;
