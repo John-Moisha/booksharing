@@ -82,7 +82,7 @@ class AuthorUpdate(LoginRequiredMixin, UpdateView):
 
 class AuthorDelete(LoginRequiredMixin, DeleteView):
     model = Author
-    success_url = reverse_lazy('books:author-list')
+    success_url = reverse_lazy('books:authors-list')
 
 
 # log
