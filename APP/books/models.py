@@ -21,6 +21,7 @@ class Author(models.Model):
     gender = models.BooleanField()
     native_language = models.CharField(max_length=64)
 
+
 class Category(models.Model):
     charfield = models.CharField(max_length=64)
 
