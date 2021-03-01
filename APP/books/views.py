@@ -89,3 +89,4 @@ class AuthorDelete(LoginRequiredMixin, DeleteView):
 class LogsMW(ListView):
     template_name = 'logs.html'
     queryset = Log.objects.all()
+
