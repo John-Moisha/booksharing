@@ -13,4 +13,9 @@ urlpatterns = [
     path('author/create/', views.AuthorCreate.as_view(), name='author-create'),
     path('author/update/<int:pk>/', views.AuthorUpdate.as_view(), name='author-update'),
     path('author/delete/<int:pk>/', views.AuthorDelete.as_view(), name='author-delete'),
+
+    path('download-csv/', views.DownloadCSVBooksView.as_view(), name='download-csv'),
+    path('download-xlsx/', views.DownloadXLSXBooksView.as_view(), name='download-xlsx'),
+    path('author/download-csv/', views.DownloadCSVAuthorsView.as_view(), name='authors-download-csv'),
+    path('author/download-xlsx/', views.DownloadXLSXAuthorsView.as_view(), name='authors-download-xlsx'),
 ]
