@@ -5,12 +5,14 @@
             <li><a class="navbar-logo" href="{% url 'index' %}">Home</a></li>
             <li><a href="#">Books</a>
                 <ul>
+                <li><a href="{% url 'books:my-books-list' %}">my books list</a></li>
                 <li><a href="{% url 'books:books-list' %}">books list</a></li>
                 <li><a href="{% url 'books:book-create' %}">book create</a></li>
                 </ul>
             </li>
             <li><a href="#">Author</a>
                 <ul>
+                <li><a href="{% url 'books:my-authors-list' %}">My authors list</a></li>
                 <li><a href="{% url 'books:authors-list' %}">authors list</a></li>
                 <li><a href="{% url 'books:author-create' %}">author create</a></li>
                 </ul>

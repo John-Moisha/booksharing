@@ -24,10 +24,14 @@ class FormUserKwargMixin:
 class Index(TemplateView):
     template_name = 'index.html'
 
-
-# Book
-class BookList(LoginRequiredMixin, ListView):
+#Books List
+class BookList(ListView):
     template_name = 'books/books_list.html'
+    queryset = Book.objects.all()
+
+# MyBook
+class MyBookList(LoginRequiredMixin, ListView):
+    template_name = 'books/my_books_list.html'
     queryset = Book.objects.all().select_related('author')
 
     def get_queryset(self):
@@ -41,7 +45,7 @@ class BookCreate(FormUserKwargMixin, CreateView):
     form_class = BookForm
 
 
-class BookUpdate(LoginRequiredMixin, UpdateView):
+class BookUpdate(FormUserKwargMixin, UpdateView):
     model = Book
     success_url = reverse_lazy('books:book-list')
     form_class = BookForm
@@ -51,10 +55,15 @@ class BookDelete(LoginRequiredMixin, DeleteView):
     model = Book
     success_url = reverse_lazy('books:books-list')
 
-
-# Authors
+#Authors List
 class AuthorList(ListView):
     template_name = 'books/authors_list.html'
+    queryset = Author.objects.all()
+
+
+# My Authors
+class MyAuthorList(ListView):
+    template_name = 'books/my_authors_list.html'
     queryset = Author.objects.all()
 
     def get_queryset(self):
@@ -68,7 +77,7 @@ class AuthorCreate(FormUserKwargMixin, CreateView):
     form_class = AuthorForm
 
 
-class AuthorUpdate(LoginRequiredMixin, UpdateView):
+class AuthorUpdate(FormUserKwargMixin, UpdateView):
     model = Author
     success_url = reverse_lazy('books:authors-list')
     form_class = AuthorForm

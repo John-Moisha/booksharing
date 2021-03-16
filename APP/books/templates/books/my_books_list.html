@@ -1,9 +1,13 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h3>{% if request.user.is_authenticated %}
-    <a href="{% url 'books:book-create' %}"> Create a book </a>
-    {% endif %}</h3>
+<h3 style="text-align:center;">
+{% if user.is_authenticated %}
+    <a href="{% url 'books:download-csv' %}">Download CSV</a> <br>
+    <a href="{% url 'books:download-xlsx' %}">Download XLSX</a> <br>
+    <a href="{% url 'books:book-create' %}"> Create an author </a>
+{% endif %}
+</h3>
     <table border="1">
         <tr>
             <th>#</th>
