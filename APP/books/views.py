@@ -35,6 +35,7 @@ class BookList(ListView):
         queryset = super().get_queryset()
         return queryset.exclude(user=self.request.user)
 
+
 # MyBook List
 class MyBookList(LoginRequiredMixin, ListView):
     template_name = 'books/my_books_list.html'
@@ -49,6 +50,7 @@ class MyBookList(LoginRequiredMixin, ListView):
 class MyRequestedBooks(LoginRequiredMixin, ListView):
     queryset = RequestBook.objects.all()
     template_name = 'books/requestbooks_list.html'
+
     def get_queryset(self):
         queryset = super().get_queryset()
         return queryset.filter(recipient=self.request.user)
@@ -63,6 +65,7 @@ class RequestedBooks(LoginRequiredMixin, ListView):
         queryset = super().get_queryset()
         return queryset.filter(book__user=self.request.user)
 
+
 # Create Request Book
 class RequestBookCreate(LoginRequiredMixin, View):
 
@@ -71,6 +74,7 @@ class RequestBookCreate(LoginRequiredMixin, View):
         if not RequestBook.objects.filter(book=book, recipient=request.user).exists():
             RequestBook.objects.create(book=book, recipient=request.user, status=1)
         return redirect('books:books-list')
+
 
 # Request Book Confirm
 class RequestBookConfirm(LoginRequiredMixin, View):
