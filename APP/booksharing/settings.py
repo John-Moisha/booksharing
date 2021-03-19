@@ -134,6 +134,7 @@ AUTH_USER_MODEL = 'accounts.User'
 
 STATIC_URL = '/static/'
 
+
 INTERNAL_IPS = [
     # ...
     '127.0.0.1',

@@ -1,9 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h3>{% if request.user.is_authenticated %}
-    <a href="{% url 'books:author-create' %}"> Create an author </a>
-    {% endif %}</h3>
+
     <table border="1">
         <tr>
             <th>#</th>

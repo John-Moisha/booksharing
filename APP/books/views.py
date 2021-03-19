@@ -7,11 +7,12 @@ from django.views.generic import (
     CreateView, UpdateView, DeleteView, ListView,
     TemplateView, View
 )
+from django.shortcuts import redirect, get_object_or_404
 from django.http import HttpResponse
 from books.utils import display
 
 from books.forms import BookForm, AuthorForm
-from books.models import Book, Author, Log
+from books.models import Book, Author, Log, RequestBook
 
 
 class FormUserKwargMixin:
@@ -24,12 +25,17 @@ class FormUserKwargMixin:
 class Index(TemplateView):
     template_name = 'index.html'
 
-#Books List
+
+# Books List
 class BookList(ListView):
     template_name = 'books/books_list.html'
     queryset = Book.objects.all()
 
-# MyBook
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        return queryset.exclude(user=self.request.user)
+
+# MyBook List
 class MyBookList(LoginRequiredMixin, ListView):
     template_name = 'books/my_books_list.html'
     queryset = Book.objects.all().select_related('author')
@@ -39,9 +45,53 @@ class MyBookList(LoginRequiredMixin, ListView):
         return queryset.filter(user=self.request.user)
 
 
+# My Requested Books
+class MyRequestedBooks(LoginRequiredMixin, ListView):
+    queryset = RequestBook.objects.all()
+    template_name = 'books/requestbooks_list.html'
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        return queryset.filter(recipient=self.request.user)
+
+
+# Requested Books
+class RequestedBooks(LoginRequiredMixin, ListView):
+    queryset = RequestBook.objects.all()
+    template_name = 'books/requested_books_list.html'
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        return queryset.filter(book__user=self.request.user)
+
+# Create Request Book
+class RequestBookCreate(LoginRequiredMixin, View):
+
+    def get(self, request, book_id):
+        book = get_object_or_404(Book, pk=book_id)
+        if not RequestBook.objects.filter(book=book, recipient=request.user).exists():
+            RequestBook.objects.create(book=book, recipient=request.user, status=1)
+        return redirect('books:books-list')
+
+# Request Book Confirm
+class RequestBookConfirm(LoginRequiredMixin, View):
+    def get(self, request, request_id):
+        request_obj = get_object_or_404(RequestBook, pk=request_id, status=10)  # TODO
+        request_obj.status = 20
+        request_obj.save(update_fields=('status', ))
+        return redirect('books:requested-books')
+
+
+class RequestBookReject(LoginRequiredMixin, View):
+    def get(self, request, request_id):
+        request_obj = get_object_or_404(RequestBook, pk=request_id, status=10)  # TODO
+        request_obj.status = 30
+        request_obj.save(update_fields=('status', ))
+        return redirect('books:requested-books')
+
+
 class BookCreate(FormUserKwargMixin, CreateView):
     model = Book
-    success_url = reverse_lazy('books:books-list')
+    success_url = reverse_lazy('books:my-books-list')
     form_class = BookForm
 
 
@@ -55,7 +105,8 @@ class BookDelete(LoginRequiredMixin, DeleteView):
     model = Book
     success_url = reverse_lazy('books:books-list')
 
-#Authors List
+
+# Authors List
 class AuthorList(ListView):
     template_name = 'books/authors_list.html'
     queryset = Author.objects.all()
@@ -73,7 +124,7 @@ class MyAuthorList(ListView):
 
 class AuthorCreate(FormUserKwargMixin, CreateView):
     model = Author
-    success_url = reverse_lazy('books:authors-list')
+    success_url = reverse_lazy('books:my-authors-list')
     form_class = AuthorForm
 
 

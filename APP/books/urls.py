@@ -10,6 +10,14 @@ urlpatterns = [
     path('update/<int:pk>/', views.BookUpdate.as_view(), name='book-update'),
     path('delete/<int:pk>/', views.BookDelete.as_view(), name='book-delete'),
 
+    path('create/book/request/<int:book_id>/', views.RequestBookCreate.as_view(), name='create-book-request'),
+    path('my-list/my-requested-books/', views.MyRequestedBooks.as_view(), name='my-requested-books'),
+    path('my-list/requested-books/', views.RequestedBooks.as_view(), name='requested-books'),
+    path('requested-books/confirm/<int:request_id>/', views.RequestBookConfirm.as_view(),
+         name='requested-books-confirm'),
+    path('requested-books/reject/<int:request_id>/', views.RequestBookReject.as_view(),
+         name='requested-books-reject'),
+
     path('author/list/', views.AuthorList.as_view(), name='authors-list'),
     path('author/my-list/', views.MyAuthorList.as_view(), name='my-authors-list'),
     path('author/create/', views.AuthorCreate.as_view(), name='author-create'),
