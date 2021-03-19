@@ -72,7 +72,7 @@ class RequestBookCreate(LoginRequiredMixin, View):
     def get(self, request, book_id):
         book = get_object_or_404(Book, pk=book_id)
         if not RequestBook.objects.filter(book=book, recipient=request.user).exists():
-            RequestBook.objects.create(book=book, recipient=request.user, status=1)
+            RequestBook.objects.create(book=book, recipient=request.user, status=10)
         return redirect('books:books-list')
 
 
