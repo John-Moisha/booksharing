@@ -16,11 +16,13 @@
         padding-left: 25px;
         min-width: 470px;
       }
+
 .menu-main li {
         float: left;
         position: relative;
         height: 100%;
       }
+
 .menu-main li a {
         display: inline-block;
         padding: 4px 5px;
