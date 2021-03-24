@@ -3,7 +3,7 @@ SHELL := /bin/bash
 manage_py := python APP/manage.py
 
 runenv:
-    env/bin/activate
+	source env/bin/activate
 
 runserver:
 	$(manage_py) runserver 0:8000
