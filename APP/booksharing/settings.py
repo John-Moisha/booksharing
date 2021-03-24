@@ -40,9 +40,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'crispy_forms',
     'debug_toolbar',
+
     'accounts',
     'books',
+
 ]
 
 MIDDLEWARE = [
@@ -75,6 +79,8 @@ TEMPLATES = [
         },
     },
 ]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 WSGI_APPLICATION = 'booksharing.wsgi.application'
 
@@ -135,6 +141,18 @@ AUTH_USER_MODEL = 'accounts.User'
 
 STATIC_URL = '/static/'
 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+CELERY_BROKER_URL = 'amqp://localhost'
+
+from celery.schedules import crontab
+
+CELERY_BEAT_SCHEDULE = {
+    'debug': {
+        'task': 'accounts.tasks.debug',
+        'schedule': crontab(minute='*/1'),
+    },
+}
 
 INTERNAL_IPS = [
     # ...

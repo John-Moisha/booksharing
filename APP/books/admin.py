@@ -14,7 +14,6 @@ class RequestBookAdmin(admin.ModelAdmin):
     list_filter = ('status', 'created', )
     search_fields = ('recipient__username', 'recipient__last_name')
 
-
     def has_delete_permission(self, request, obj=None):
         return False
 
