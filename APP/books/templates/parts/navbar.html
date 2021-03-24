@@ -25,7 +25,7 @@
                 {% if user.is_authenticated %}
                     <li><a href="{% url 'logout' %}">LogOut</a></li>
                 {% else %}
-                    <li><a href="{% url 'siginup' %}">SiginUp</a></li>
+                    <li><a href="{% url 'signup' %}">SiginUp</a></li>
                     <li><a href="{% url 'login' %}">LogIn</a></li>
                 {% endif%}
                 </ul>

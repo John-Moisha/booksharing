@@ -17,6 +17,14 @@ class User(AbstractUser):
         'email address', blank=False, null=False, unique=True,
     )
 
+    @property
+    def save(self, *args, **kwargs):
+
+        if not self.username:
+            self.username = str(uuid.uuid4())
+
+        super().save(*args, **kwargs)
+
 
 class ContactUs(models.Model):
     full_name = models.CharField(max_length=128)

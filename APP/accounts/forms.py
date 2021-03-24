@@ -1,7 +1,7 @@
 from django import forms
 
 from accounts.models import User
-# from accounts.tasks import send_activate_account_email
+from accounts.tasks import send_activate_account_email
 
 
 class SighUpForm(forms.ModelForm):
@@ -11,7 +11,6 @@ class SighUpForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ('email', 'password1', 'password2')
-
 
     def clean(self):
         cleaned_data = super().clean()
@@ -26,8 +25,9 @@ class SighUpForm(forms.ModelForm):
         instance.set_password(self.cleaned_data['password1'])
 
         if commit:
+            # breakpoint()
             instance.save()
 
-        # send_activate_account_email.delay(instance.username)
+        send_activate_account_email.delay(instance.username)
 
         return instance
