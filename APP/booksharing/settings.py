@@ -145,7 +145,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 CELERY_BROKER_URL = 'amqp://localhost'
 
-from celery.schedules import crontab
+from celery.schedules import crontab # noqa
 
 CELERY_BEAT_SCHEDULE = {
     'debug': {

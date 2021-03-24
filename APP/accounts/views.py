@@ -51,6 +51,7 @@ class SignUpView(CreateView):
     form_class = SighUpForm
     template_name = 'accounts/signup.html'
 
+
 class ActivateView(RedirectView):
     pattern_name = 'login'
 

@@ -40,4 +40,4 @@ def send_activate_account_email(username):
 
 @shared_task
 def debug():
-    print('DEBUG ' * 10)
+    print('DEBUG ' * 10) # noqa
