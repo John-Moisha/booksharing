@@ -1,4 +1,5 @@
 from django.db import models
+from books import model_choices as mch
 
 
 # Create your models here.
@@ -20,6 +21,9 @@ class Author(models.Model):
     def full_name(self):
         return f"{self.first_name} {self.last_name}"
 
+    def __str__(self):
+        return f"{self.first_name} {self.last_name}"
+
 
 class Category(models.Model):
     category = models.CharField(max_length=64)
@@ -37,33 +41,18 @@ class Book(models.Model):
     author = models.ForeignKey(Author, on_delete=models.SET_NULL,
                                null=True, default=None)
 
-
-class RequestBook(models.Model):
-    STATUS_IN_PROGRESS = 10
-    STATUS_CONFIRMED = 20
-    STATUS_REJECT = 30
-    STATUS_SENT_TO_RECIPIENT = 40
-    STATUS_RECIPIENT_RECEIVED_BOOK = 50
-    STATUS_SENT_BACK_TO_OWNER = 60
-    STATUS_OWNER_RECEIVED_BACK = 70
-
-    REQUEST_STATUSES = (
-        (STATUS_IN_PROGRESS, 'In Progress'),
-        (STATUS_CONFIRMED, 'Confirmed'),
-        (STATUS_REJECT, 'Reject'),
-        (STATUS_SENT_TO_RECIPIENT, 'Sent via mail Service'),
-        (STATUS_RECIPIENT_RECEIVED_BOOK, 'received Book'),
-        (STATUS_SENT_BACK_TO_OWNER, 'Sent Back'),
-        (STATUS_OWNER_RECEIVED_BACK, 'Received Back (Final)'),
-    )
-
-    book = models.ForeignKey(Book, on_delete=models.CASCADE)
-    recipient = models.ForeignKey('accounts.User', on_delete=models.CASCADE)
-    created = models.DateTimeField(auto_now_add=True)
-    status = models.PositiveSmallIntegerField(choices=REQUEST_STATUSES)
+    def __str__(self):
+        return f"{self.id} {self.title} {self.author_id}"
 
 
 class Log(models.Model):
     path = models.CharField(max_length=512)
     method = models.CharField(max_length=64)
     time = models.PositiveSmallIntegerField()
+
+
+class RequestBook(models.Model):
+    book = models.ForeignKey(Book, on_delete=models.CASCADE)
+    recipient = models.ForeignKey('accounts.User', on_delete=models.CASCADE)
+    created = models.DateTimeField(auto_now_add=True)
+    status = models.PositiveSmallIntegerField(choices=mch.REQUEST_STATUSES)
