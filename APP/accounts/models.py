@@ -17,7 +17,6 @@ class User(AbstractUser):
         'email address', blank=False, null=False, unique=True,
     )
 
-
     def save(self, *args, **kwargs):
 
         if not self.username:
