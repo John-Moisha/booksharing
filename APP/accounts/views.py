@@ -1,6 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import UpdateView, CreateView, RedirectView, View
+from django.views.generic import UpdateView, CreateView, RedirectView
 from django.urls import reverse_lazy
 from annoying.functions import get_object_or_None
 
@@ -8,7 +8,6 @@ from accounts.forms import SighUpForm
 from accounts.models import User, ContactUs
 from accounts.tasks import send_contact_us_email
 
-from .tokens import account_activation_token
 
 class MyProfileView(LoginRequiredMixin, UpdateView):
     queryset = User.objects.all()

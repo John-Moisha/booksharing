@@ -3,9 +3,11 @@ import uuid
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
+
 def user_upload_avatar(instance, filename):
     path = f'avatars/{instance.id}/{filename}'
     return path
+
 
 class User(AbstractUser):
     USERNAME_FIELD = 'email'

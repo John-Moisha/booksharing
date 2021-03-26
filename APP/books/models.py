@@ -28,12 +28,13 @@ class Author(models.Model):
 class Category(models.Model):
     category = models.CharField(max_length=64)
 
+
 def book_upload_cover(instance, filename):
     path = f'books/{instance.id}/{filename}'
     return path
 
-default_cover_none_url = 'books/none/book_none.jpg'
 
+# default_cover_none_url = 'books/none/book_none.jpg'
 class Book(models.Model):
     title = models.CharField(max_length=128)
     publish_year = models.PositiveSmallIntegerField()
