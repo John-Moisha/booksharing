@@ -15,6 +15,7 @@
                     <th>Condition</th>
                     <th>Request</th>
                     <th>Update</th>
+                    <th>View</th>
                 </tr>
 
         {% for object in object_list %}
@@ -29,11 +30,13 @@
                 <td>{{ object.publish_year }}</td>
                 <td>{{ object.review }}</td>
                 <td>{{ object.condition }}</td>
-                <td><a href="{% url 'books:create-book-request' object.id %}">Request Book</a></td>
+                <td><a href="{% url 'books:create-book-request' object.id %}">Request</a></td>
                 {% if request.user.is_authenticated %}
             <td><a  class="btn btn-primary"  href="{% url 'books:book-update' object.id %}"> Edit </a></td>
             {% endif %}
+
             </tr>
+
         {% endfor %}
     </table>
 

@@ -22,6 +22,7 @@
             {% if request.user.is_authenticated %}
             <th>Update</th>
             {% endif %}
+            <th>View</th>
         </tr>
 
         {% for object in object_list %}
@@ -37,6 +38,7 @@
                 <td>{{ object.review }}</td>
                 <td>{{ object.condition }}</td>
             <td><a href="{% url 'books:book-update' object.id %}"> Edit </a></td>
+                <td><a href="{% url 'books:book-view' object.id %}">View</a></td>
             </tr>
         {% endfor %}
     </table>

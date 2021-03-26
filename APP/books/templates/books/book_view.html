@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="row">
+        <div class="col-3">
+            <img class="shadow p-1 mb-5 bg-white rounded"
+             width="220" height="350"
+             src="{{ book.cover.url }}"
+             data-holder-rendered="true">
+        </div>
+        <div class="col-9">
+
+            <table class="table table-striped">
+                <tr>
+                    <th>ID</th>
+                    <th>{{ object.id }}</th>
+                </tr>
+                <tr>
+                    <th>Author Name</th>
+                    <th>{{ object.author.first_name }}
+                    {{ object.author.last_name }}</th>
+                </tr>
+                <tr>
+                    <th>Title</th>
+                    <th>{{ object.title }}</th>
+                </tr>
+                <tr>
+                    <th>Publish Year</th>
+                    <th>{{ object.publish_year }}</th>
+                </tr>
+                <tr>
+                    <th>Review</th>
+                    <th>{{ object.review }}</th>
+                </tr>
+                <tr>
+                    <th>Condition</th>
+                    <th>{{ object.condition }}</th>
+                </tr>
+            </table>
+            <a  class="btn btn-primary"  href="{% url 'books:book-update' object.id %}"> Edit </a>
+        </div>
+</div>
+{% endblock content %}
