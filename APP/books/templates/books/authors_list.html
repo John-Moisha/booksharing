@@ -1,8 +1,10 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<div class="row">
+        <div class="col">
 
-    <table border="1">
+    <table class="table table-striped">
         <tr>
             <th>#</th>
             <th>ID</th>
@@ -13,14 +15,12 @@
             <th>Country</th>
             <th>Gender</th>
             <th>Language</th>
-            {% if request.user.is_authenticated %}
             <th>Update</th>
-            {% endif %}
         </tr>
 
         {% for author in author_list  %}
             <tr>
-                <td>{{ forloop.counter }}</td>
+                <th scope="row">{{ forloop.counter }}</th>
                 <td>{{ author.id }}</td>
                 <td>{{ author.first_name }}</td>
                 <td>{{ author.last_name }}</td>
@@ -29,11 +29,11 @@
                 <td>{{ author.country }}</td>
                 <td>{{ author.gender }}</td>
                 <td>{{ author.native_language }}</td>
-                {% if request.user.is_authenticated %}
                 <td><a href="{% url 'books:author-update' author.id %}">Edit</a></td>
-                {% endif %}
+
             </tr>
         {% endfor %}
     </table>
-
+        </div>
+</div>
 {% endblock content%}

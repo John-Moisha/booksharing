@@ -1,8 +1,9 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
-    <table border="1">
+<div class="row">
+        <div class="col">
+    <table class="table table-striped">
         <tr>
             <th>№</th>
             <th>ID</th>
@@ -14,7 +15,7 @@
 
         {% for object in object_list %}
             <tr>
-                <td>{{ forloop.counter }}</td>
+                <th scope="row">{{ forloop.counter }}</th>
                 <td>{{ object.id }}</td>
                 <td>{{ object.book.title }}</td>
                 <td>{{ object.created }}</td>
@@ -31,5 +32,6 @@
             </tr>
         {% endfor %}
     </table>
-
+        </div>
+</div>
 {% endblock content %}

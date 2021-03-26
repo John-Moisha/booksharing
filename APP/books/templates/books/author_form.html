@@ -1,16 +1,20 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
 
 {% block content %}
 
+<div class="row">
+        <div class="col-4">
 <form method="post">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Create</button>
+    {{ form|crispy }}
+    <button type="submit"  class="btn btn-success">Create</button>
 
 </form>
-
 {% if form.instance.id %}
-    <a href="{% url 'books:author-delete' form.instance.id %}">DELETE</a>
+    <a class="btn btn-outline-danger"  href="{% url 'books:author-delete' form.instance.id %}">DELETE</a>
 {% endif %}
+        </div>
+</div>
 
 {% endblock content%}

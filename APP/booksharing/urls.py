@@ -16,8 +16,11 @@ Including another URLconf
 import debug_toolbar
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
 from books import views
 from accounts.views import MyProfileView, ContactUsView, SignUpView, ActivateView
+
 
 urlpatterns = [
     path('admin/', admin.site.urls, name='admin'),
@@ -29,9 +32,16 @@ urlpatterns = [
     path('accounts/my-profile/', MyProfileView.as_view(), name='my-profile'),
     path('accounts/contact-us/', ContactUsView.as_view(), name='contact-us'),
     path('accounts/signup/', SignUpView.as_view(), name='signup'),
-    path('accounts/activate/<uuid:username>/', ActivateView.as_view(), name='activate'),
+    # url(r'^accounts/signup2/$', signup2, name='signup2'),
 
+    path('accounts/activate/<uuid:username>/', ActivateView.as_view(), name='activate'),
+    # url(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
+    #     views.a, name='activate'),
+    # url(r'^activate_account/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
+    #             ActivateAccountView.as_view(), name='activate_account'),
     path('logs/', views.LogsMW.as_view(), name='logs'),
     path('__debug__/', include(debug_toolbar.urls)),
 
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

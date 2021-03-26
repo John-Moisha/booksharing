@@ -41,8 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'crispy_forms',
     'debug_toolbar',
+    'crispy_forms',
 
     'accounts',
     'books',
@@ -79,8 +79,6 @@ TEMPLATES = [
         },
     },
 ]
-
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 WSGI_APPLICATION = 'booksharing.wsgi.application'
 
@@ -140,6 +138,12 @@ AUTH_USER_MODEL = 'accounts.User'
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
+
+MEDIA_ROOT = BASE_DIR / '..' / 'media'
+MEDIA_URL = '/media/'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
@@ -159,3 +163,5 @@ INTERNAL_IPS = [
     '127.0.0.1',
     # ...
 ]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

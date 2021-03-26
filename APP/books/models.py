@@ -28,6 +28,11 @@ class Author(models.Model):
 class Category(models.Model):
     category = models.CharField(max_length=64)
 
+def book_upload_cover(instance, filename):
+    path = f'books/{instance.id}/{filename}'
+    return path
+
+default_cover_none_url = 'books/none/book_none.jpg'
 
 class Book(models.Model):
     title = models.CharField(max_length=128)
@@ -40,6 +45,7 @@ class Book(models.Model):
                              null=True, default=None)
     author = models.ForeignKey(Author, on_delete=models.SET_NULL,
                                null=True, default=None)
+    cover = models.FileField(null=True, default=None, upload_to=book_upload_cover)
 
     def __str__(self):
         return f"{self.id} {self.title} {self.author_id}"

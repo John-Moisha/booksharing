@@ -1,0 +1,36 @@
+<div id="navbar">
+    <nav class="top-menu">
+
+        <ul class="menu-main">
+            <li><a class="navbar-logo" href="{% url 'index' %}">Home</a></li>
+            <li><a href="#">Books</a>
+                <ul>
+                <li><a href="{% url 'books:my-books-list' %}">my books list</a></li>
+                <li><a href="{% url 'books:books-list' %}">books list</a></li>
+                <li><a href="{% url 'books:book-create' %}">book create</a></li>
+                <li><a href="{% url 'books:my-requested-books' %}">My Requests</a></li>
+                <li><a href="{% url 'books:requested-books' %}">Requested Books</a></li>
+                </ul>
+            </li>
+            <li><a href="#">Author</a>
+                <ul>
+                <li><a href="{% url 'books:my-authors-list' %}">My authors list</a></li>
+                <li><a href="{% url 'books:authors-list' %}">authors list</a></li>
+                <li><a href="{% url 'books:author-create' %}">author create</a></li>
+                </ul>
+            </li>
+            <li><a href="{% url 'contact-us' %}">Contact Us</a></li>
+            <li><a href="#">Enter</a>
+                <ul>
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'logout' %}">LogOut</a></li>
+                {% else %}
+                    <li><a href="{% url 'signup' %}">SiginUp</a></li>
+                    <li><a href="{% url 'login' %}">LogIn</a></li>
+                {% endif%}
+                </ul>
+            </li>
+            <li><a href="{% url 'logs' %}">Logs</a></li>
+        </ul>
+    </nav>
+</div>
