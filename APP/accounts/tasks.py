@@ -38,7 +38,6 @@ def send_activate_account_email(username, token):
     )
 
 
-
 @shared_task
 def debug():
     print('DEBUG ' * 10) # noqa
