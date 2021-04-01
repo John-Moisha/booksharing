@@ -19,7 +19,7 @@ migrate:
 	$(manage_py) migrate
 
 shell_plus:
-	$(manage_py) shell_plus --print-sql
+	$(manage_py) shell
 
 
 flake8:

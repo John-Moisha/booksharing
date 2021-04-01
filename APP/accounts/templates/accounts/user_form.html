@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <h1>My profile</h1>
+
+    <img class="rounded-circle"
+             width="100" height="100"
+             src="{{ request.user.avatar.url }}"
+             data-holder-rendered="true">
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit</button>
+    </form>
+
+{% endblock content %}

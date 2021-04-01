@@ -5,7 +5,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views.generic import (
     CreateView, UpdateView, DeleteView, ListView,
-    TemplateView, View
+    TemplateView, View, DetailView
 )
 from django.shortcuts import redirect, get_object_or_404
 from django.http import HttpResponse
@@ -156,6 +156,11 @@ class BookUpdate(FormUserKwargMixin, UpdateView):
             self.request, messages.INFO, 'Book Was Updated')
 
         return super().get_success_url()
+
+
+class BookView(FormUserKwargMixin, DetailView):
+    model = Book
+    template_name = 'books/book_view.html'
 
 
 class BookDelete(LoginRequiredMixin, DeleteView):

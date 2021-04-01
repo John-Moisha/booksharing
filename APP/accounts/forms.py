@@ -2,6 +2,7 @@ from django import forms
 
 from accounts.models import User
 from accounts.tasks import send_activate_account_email
+from django.contrib.auth.tokens import default_token_generator
 
 
 class SighUpForm(forms.ModelForm):
@@ -28,6 +29,7 @@ class SighUpForm(forms.ModelForm):
             # breakpoint()
             instance.save()
 
-        send_activate_account_email.delay(instance.username)
+        token = default_token_generator.make_token(instance)
+        send_activate_account_email.delay(instance.username, token)
 
         return instance

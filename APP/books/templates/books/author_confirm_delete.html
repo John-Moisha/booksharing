@@ -4,7 +4,8 @@
 
     <h1>Do you really want to delete Author with id: {{ object.pk }}</h1>
 
-    <form method="post">{% csrf_token %}
+    <form method="post">
+        {% csrf_token %}
         <p>Are you sure you want to delete "{{ object }}"?</p>
         <input type="submit" value="Confirm">
     </form>

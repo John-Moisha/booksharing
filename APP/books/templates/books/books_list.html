@@ -1,25 +1,26 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<div class="row">
+        <div class="col">
 
-    <table border="1">
-        <tr>
-            <th>#</th>
-            <th>ID</th>
-            <th>Author Name</th>
-            <th>Title</th>
-            <th>Publish Year</th>
-            <th>Review</th>
-            <th>Condition</th>
-            <th>Request</th>
-            {% if request.user.is_authenticated %}
-            <th>Update</th>
-            {% endif %}
-        </tr>
+            <table class="table table-striped">
+                <tr>
+                    <th>#</th>
+                    <th>ID</th>
+                    <th>Author Name</th>
+                    <th>Title</th>
+                    <th>Publish Year</th>
+                    <th>Review</th>
+                    <th>Condition</th>
+                    <th>Request</th>
+                    <th>Update</th>
+                    <th>View</th>
+                </tr>
 
         {% for object in object_list %}
             <tr>
-                <td>{{ forloop.counter }}</td>
+                <th scope="row">{{ forloop.counter }}</th>
                 <td>{{ object.id }}</td>
                 <td>
                     {{ object.author.first_name }}
@@ -29,13 +30,16 @@
                 <td>{{ object.publish_year }}</td>
                 <td>{{ object.review }}</td>
                 <td>{{ object.condition }}</td>
-                <td><a href="{% url 'books:create-book-request' object.id %}">Request Book</a></td>
+                <td><a href="{% url 'books:create-book-request' object.id %}">Request</a></td>
                 {% if request.user.is_authenticated %}
-            <td><a href="{% url 'books:book-update' object.id %}"> Edit </a></td>
+            <td><a  class="btn btn-primary"  href="{% url 'books:book-update' object.id %}"> Edit </a></td>
             {% endif %}
+
             </tr>
+
         {% endfor %}
     </table>
 
-
+        </div>
+</div>
 {% endblock content %}

@@ -2,13 +2,15 @@
 
 {% block content %}
 <h3 style="text-align:center;">
-{% if user.is_authenticated %}
+
     <a href="{% url 'books:download-csv' %}">Download CSV</a> <br>
     <a href="{% url 'books:download-xlsx' %}">Download XLSX</a> <br>
     <a href="{% url 'books:book-create' %}"> Create a Book </a>
-{% endif %}
+
 </h3>
-    <table border="1">
+<div class="row">
+        <div class="col">
+    <table class="table table-striped">
         <tr>
             <th>#</th>
             <th>ID</th>
@@ -20,11 +22,12 @@
             {% if request.user.is_authenticated %}
             <th>Update</th>
             {% endif %}
+            <th>View</th>
         </tr>
 
         {% for object in object_list %}
             <tr>
-                <td>{{ forloop.counter }}</td>
+                <th scope="row">{{ forloop.counter }}</th>
                 <td>{{ object.id }}</td>
                 <td>
                     {{ object.author.first_name }}
@@ -34,12 +37,12 @@
                 <td>{{ object.publish_year }}</td>
                 <td>{{ object.review }}</td>
                 <td>{{ object.condition }}</td>
-                {% if request.user.is_authenticated %}
             <td><a href="{% url 'books:book-update' object.id %}"> Edit </a></td>
-            {% endif %}
+                <td><a href="{% url 'books:book-view' object.id %}">View</a></td>
             </tr>
         {% endfor %}
     </table>
 
-
+        </div>
+</div>
 {% endblock content %}

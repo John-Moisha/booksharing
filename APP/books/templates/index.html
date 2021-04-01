@@ -1,8 +1,17 @@
 {% extends 'base.html' %}
+{% load static%}
 
 {% block content %}
 {#    {{ block.super }}#}
-
-    HELLO FROM INDEX
+    <div class="row">
+        <div class="col-4"></div>
+        <div class="col-4">
+            HELLO FROM INDEX
+            <br>
+            <img src="{% static 'img/Logo.png' %}">
+        </div>
+        <div class="col-4"></div>
     <br>
+    </div>
+
 {% endblock content %}

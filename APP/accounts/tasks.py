@@ -22,15 +22,15 @@ def send_contact_us_email(form_data):
 
 
 @shared_task
-def send_activate_account_email(username):
-    link = reverse('activate', args=(username, ))
+def send_activate_account_email(username, token):
+    link = reverse('activate', args=(username, token))
     message = f"""
         Your activation http://127.0.0.1:8000{link}
     """  # TODO
     sender = 'fenderoksp@gmail.com'  # TODO
 
     send_mail(
-        'Activate Your Accont',
+        'Activate Your Account',
         message,
         sender,
         [sender],
