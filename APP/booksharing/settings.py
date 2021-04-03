@@ -141,8 +141,9 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
+STATIC_ROOT = '/var/www/booksharing'
 
-MEDIA_ROOT = BASE_DIR / '..' / 'media'
+MEDIA_ROOT = '/var/www/booksharing/media'
 MEDIA_URL = '/media/'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
