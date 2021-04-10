@@ -31,10 +31,11 @@ class AuthorSerializer(serializers.ModelSerializer):
             'native_language',
         )
 
+
 class CategorySerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = Author
+        model = Category
         fields = (
             'id',
             'category',
