@@ -7,3 +7,5 @@ APP/books/__pycache__/*
 APP/books/migrations/__pycache__/*
 APP/booksharing/__pycache__/*
 APP/booksharing/migrations/__pycache__/*
+.idea/
+.idea/*

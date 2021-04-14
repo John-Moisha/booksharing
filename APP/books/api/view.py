@@ -1,4 +1,4 @@
-from rest_framework import generics, viewsets, filters
+from rest_framework import viewsets, filters
 from django_filters.rest_framework import DjangoFilterBackend
 from books.api.filters import BookFilter, AuthorFilter, CategoryFilter
 from books.api.serializers import BookSerializer, AuthorSerializer, CategorySerializer
