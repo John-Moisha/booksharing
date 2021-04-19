@@ -1,21 +1,17 @@
-import csv
-import xlwt
-
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views.generic import (
     CreateView, UpdateView, DeleteView, ListView,
-    TemplateView, View, DetailView
-)
+    TemplateView, View, DetailView)
 from django.shortcuts import redirect, get_object_or_404
 from django.http import HttpResponse
 from django.contrib import messages
 from books.utils import display
-
-
 from books.forms import BookForm, AuthorForm
 from books.models import Book, Author, Log, RequestBook
 from books import model_choices as mch
+import csv
+import xlwt
 
 
 class FormUserKwargMixin:
@@ -36,7 +32,11 @@ class BookList(ListView):
 
     def get_queryset(self):
         queryset = super().get_queryset()
-        return queryset.exclude(user=self.request.user)
+        if str(self.request.user.__class__) == "<class 'accounts.models.User'>":
+            return queryset.exclude(user=self.request.user)
+        else:
+            return queryset
+        # return queryset.exclude(user=self.request.user)
 
 
 # MyBook List
