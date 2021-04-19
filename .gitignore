@@ -10,3 +10,5 @@ APP/booksharing/migrations/__pycache__/*
 .idea/
 .idea/*
 backstage/
+.pytest_cache
+.coverage
