@@ -21,6 +21,8 @@ migrate:
 shell_plus:
 	$(manage_py) shell
 
+pytest:
+	pytest APP/ --cov=app --cov-report html
 
 flake8:
 	flake8 ./APP
