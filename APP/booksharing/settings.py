@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'crispy_forms',
     'rest_framework',
+    'django_memcached',
 
     'accounts',
     'books',
@@ -180,4 +181,12 @@ REST_FRAMEWORK = {
         # 'rest_framework.permissions.IsAuthenticated',
     ),
     'TEST_REQUEST_DEFAULT_FORMAT': 'json',
+}
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        'LOCATION': '127.0.0.1:11211',
+        # 'LOCATION': 'my-domain.com:11211',
+    }
 }
