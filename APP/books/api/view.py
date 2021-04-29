@@ -1,6 +1,6 @@
 from rest_framework import viewsets, filters
 from django_filters.rest_framework import DjangoFilterBackend
-from books.api.filters import BookFilter, AuthorFilter, CategoryFilter
+from books.api.filters import BookFilter, AuthorFilter
 from books.api.serializers import BookSerializer, AuthorSerializer, CategorySerializer
 from books.models import Book, Author, Category
 from rest_framework.response import Response
@@ -31,7 +31,7 @@ class CategoryModelViewSet(viewsets.ModelViewSet):
     permission_classes = ()
     pagination_class = None
 
-    def list(self, request, *args, **kwargs):
+    def list(self, request, *args, **kwargs): # noqa
         response_data = cache.get(Category.CACHE_OBJECTS_LIST)
         if response_data is not None:
             return Response(response_data)
