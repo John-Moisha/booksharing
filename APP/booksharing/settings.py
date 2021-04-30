@@ -9,8 +9,9 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
-
+import os
 from pathlib import Path
+from celery.schedules import crontab
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -23,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = ')08(m9nmrl7&ooaaful(8p9jxr7sdh3^s##sz$j#j+=$@(oi0q'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True  # TODO
+DEBUG = os.getenv('ENV') == 'dev'  # 'dev' == 'dev'
 
 ALLOWED_HOSTS = ['*']
 
@@ -92,7 +93,12 @@ WSGI_APPLICATION = 'booksharing.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+      # 'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': os.environ['POSTGRES_DB'],
+        'USER': os.environ['POSTGRES_USER'],
+        'PASSWORD': os.environ['POSTGRES_PASSWORD'],
+        'HOST': os.environ.get('POSTGRES_HOST', '127.0.0.1'),
+        'PORT': os.environ.get('POSTGRES_PORT', '5432'),
     }
 }
 
@@ -144,15 +150,21 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
+STATIC_ROOT = '/var/www/booksharing'
 
-MEDIA_ROOT = BASE_DIR / '..' / 'media'
+MEDIA_ROOT = '/var/www/booksharing/media'
 MEDIA_URL = '/media/'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 CELERY_BROKER_URL = 'amqp://localhost'
 
-from celery.schedules import crontab # noqa
+CELERY_BROKER_URL = 'amqp://{0}:{1}@{2}:{3}//'.format(
+    os.environ['RABBITMQ_DEFAULT_USER'],
+    os.environ['RABBITMQ_DEFAULT_PASS'],
+    os.environ.get('RABBITMQ_DEFAULT_HOST', '127.0.0.1'),
+    os.environ.get('RABBITMQ_DEFAULT_PORT', '5672'),
+)
 
 CELERY_BEAT_SCHEDULE = {
     'debug': {
@@ -160,12 +172,6 @@ CELERY_BEAT_SCHEDULE = {
         'schedule': crontab(minute='*/1'),
     },
 }
-
-INTERNAL_IPS = [
-    # ...
-    '127.0.0.1',
-    # ...
-]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
@@ -181,3 +187,18 @@ REST_FRAMEWORK = {
     ),
     'TEST_REQUEST_DEFAULT_FORMAT': 'json',
 }
+
+if DEBUG:
+    import socket
+
+    ALLOWED_HOSTS = ['*']
+
+    # debug tool_bar
+    DEBUG_TOOLBAR_PATCH_SETTINGS = True
+    INTERNAL_IPS = ['127.0.0.1']
+
+    # tricks to have debug toolbar when developing with docker
+    ip = socket.gethostbyname(socket.gethostname())
+    ip = '.'.join(ip.split('.')[:-1])
+    ip = f'{ip}.1'
+    INTERNAL_IPS.append(ip)

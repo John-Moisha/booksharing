@@ -1,0 +1,33 @@
+version: "3.8"
+services:
+  memcached:
+    ports:
+      - "11212:11212"
+  db:
+    ports:
+      - "5432:5432"
+  broker:
+    ports:
+      - "5671:5671"
+      - "15672:15672"
+  backend:
+    build: .
+    volumes:
+      - "./:/app"
+    ports:
+      - "8008:8008"
+
+  web:
+    ports:
+      - "81:81"
+      - "443:443"
+
+  worker:
+    build: .
+
+  celerybeat:
+    build: .
+
+  pgadmin4:
+    ports:
+      - "5050:5050"

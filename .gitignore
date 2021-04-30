@@ -11,4 +11,9 @@ APP/booksharing/migrations/__pycache__/*
 .idea/*
 backstage/
 .pytest_cache
-.coveragerc
+.env.example
+APP/celerybeat-schedule
+media/
+.coverage
+app/celerybeat-schedule
+mailler

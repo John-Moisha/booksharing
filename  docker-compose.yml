@@ -1,0 +1,38 @@
+ersion: "3.8"
+
+services:
+  memcached:
+    image: memcached:latest
+    container_name: "memcached"
+  db:
+    image: postgres:12.3-alpine
+    restart: always
+    container_name: "db"
+    env_file:
+      - .env
+
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+  web:
+    image: nginx:1.19
+    container_name: "web"
+    volumes:
+      - "./default.conf:/etc/nginx/conf.d/default.conf"
+    depends_on:
+      - db
+
+  broker:
+    image: rabbitmq:3-management
+	@@ -59,11 +58,9 @@ services:
+      - MODE=celerybeat
+
+  pgadmin4:
+    image: dpage/pgadmin4:latest
+    restart: always
+    container_name: "pgadmin4"
+    env_file:
+      - .env
+
+volumes:
+  db_data: {}
