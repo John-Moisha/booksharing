@@ -1,16 +1,16 @@
-ersion: "3.8"
+version: "3.8"
 
 services:
   memcached:
     image: memcached:latest
     container_name: "memcached"
+
   db:
     image: postgres:12.3-alpine
     restart: always
     container_name: "db"
     env_file:
       - .env
-
     volumes:
       - db_data:/var/lib/postgresql/data
 
@@ -24,7 +24,33 @@ services:
 
   broker:
     image: rabbitmq:3-management
-	@@ -59,11 +58,9 @@ services:
+    container_name: "broker"
+    env_file:
+      - .env
+
+  backend:
+    image: local:0.0.1
+    restart: always
+    container_name: "backend"
+    env_file:
+      - .env
+
+  worker:
+    image: local:0.0.1
+    restart: always
+    container_name: "worker"
+    env_file:
+      - .env
+    environment:
+      - MODE=worker
+
+  celerybeat:
+    image: local:0.0.1
+    restart: always
+    container_name: "celerybeat"
+    env_file:
+      - .env
+    environment:
       - MODE=celerybeat
 
   pgadmin4:
