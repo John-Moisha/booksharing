@@ -46,11 +46,11 @@ urlpatterns = [
     # url(r'^activate_account/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
     #             ActivateAccountView.as_view(), name='activate_account'),
     path('logs/', views.LogsMW.as_view(), name='logs'),
-    path('__debug__/', include(debug_toolbar.urls)),
+    # path('__debug__/', include(debug_toolbar.urls)),
 
 ]
 
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+# urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 schema_view = get_schema_view(
    openapi.Info(
@@ -70,3 +70,9 @@ urlpatterns += [
    path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
    path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns.append(
+        path('__debug__/', include(debug_toolbar.urls)),
+    )
